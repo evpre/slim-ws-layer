@@ -12,7 +12,8 @@ class MailService {
     {
         $domain = $userInfo->domain;
         $userName = $userInfo->userName;
-        $result = `/home/jonny/workspace/utils/iRedMail-0.8.6/tools/create_mail_user_SQL $domain $userName`;
+        shell_exec("/home/jonny/workspace/utils/iRedMail-0.8.6/tools/create_mail_user_SQL.sh $domain $userName");
+        $result = shell_exec("/home/jonny/workspace/utils/iRedMail-0.8.6/tools/executeVmail.sh");
         return $result;
     }
 }
