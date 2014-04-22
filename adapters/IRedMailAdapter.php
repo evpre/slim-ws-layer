@@ -6,10 +6,24 @@
  * Time: 12:31
  */
 
+require_once dirname(__FILE__).'/../services/MailService.php';
+
 class IRedMailAdapter {
 
+    protected $mailService;
+
+    function __construct(){
+        $this->mailService = new MailService();
+    }
+
     function createEmailAccount($userInfo){
-        $userObject = json_decode($userInfo);
-        return $userInfo;
+        try{
+            $result = $this->mailService->createEmailAccount(json_decode(urldecode($userInfo)));
+            return $result;
+        }
+        catch (Exception $e){
+            return json_encode(array("success"=>false, "data" => $e->getMessage()));
+        }
+
     }
 } 
