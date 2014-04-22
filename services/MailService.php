@@ -12,7 +12,7 @@ class MailService {
     {
         $domain = $userInfo->domain;
         $userName = $userInfo->userName;
-        $result = shell_exec("/home/jonny/workspace/utils/iRedMail-0.8.6/tools/create_mail_user_SQL $domain $userName");
+        $result = `/home/jonny/workspace/utils/iRedMail-0.8.6/tools/create_mail_user_SQL $domain $userName`;
         return $result;
     }
 }
