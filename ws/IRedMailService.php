@@ -28,7 +28,7 @@ class IRedMailService extends BaseWSService {
         $this->app->put('/newUser/', function () use($res, $serviceAdapter, $req) {
             $res->header('Content-Type', 'application/json');
             $body = $req->getBody();
-            $result = $serviceAdapter->createEmailAccount($this->parseUrlEncoded($body));
+            $result = $serviceAdapter->createEmailAccount($body);
             $res->body($result);
         });
     }
