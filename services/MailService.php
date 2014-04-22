@@ -12,7 +12,9 @@ class MailService {
     {
         $domain = $userInfo->domain;
         $userName = $userInfo->userName;
-        $result = shell_exec("sh /home/jonny/workspace/utils/slim-ws-layer/eamida_create_mail_user_SQL.sh $domain $userName");
+        $result = shell_exec("sh ../eamida_create_mail_user_SQL.sh $domain $userName");
         return $result;
     }
+
+
 }
