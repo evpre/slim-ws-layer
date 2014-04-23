@@ -41,7 +41,7 @@ class MysqlAdapter {
     public function notExistsDomain($domain)
     {
         $result = mysqli_query($this->conn, "SELECT * FROM domain WHERE domain='$domain'");
-        if($result){
+        if(mysqli_num_rows($result)){
             throw new Exception("domain already exists");
         }
         return true;
