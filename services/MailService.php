@@ -23,12 +23,13 @@ class MailService {
         $userAlias = $userInfo->userAlias;
 
         $result = shell_exec("sh ../eamida_create_mail_user_SQL.sh $domain $userName");
-
-        if($result){
-            $this->db->openConnection();
-            $result = $this->db->createAlias($userName, $userAlias, $domain);
-            $this->db->closeConnection();
+        if(!$result){
+            throw new Exception("shell script for user creation failed");
         }
+
+        $this->db->openConnection();
+        $result = $this->db->createAlias($userName, $userAlias, $domain);
+        $this->db->closeConnection();
         return $result;
     }
 
