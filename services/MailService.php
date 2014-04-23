@@ -22,12 +22,14 @@ class MailService {
         $userName = $userInfo->userName;
         $userAlias = $userInfo->userAlias;
 
+        $this->db->openConnection();
+        $this->db->existsDomain($domain);
         $result = shell_exec("sh ../eamida_create_mail_user_SQL.sh $domain $userName");
         if(!$result){
             throw new Exception("shell script for user creation failed");
         }
 
-        $this->db->openConnection();
+
         $result = $this->db->createAlias($userName, $userAlias, $domain);
         $this->db->closeConnection();
         return $result;
@@ -36,6 +38,7 @@ class MailService {
     public function createDomain($domain)
     {
         $this->db->openConnection();
+        $this->db->notExistsDomain($domain);
         $result = $this->db->createDomain($domain);
         $this->db->closeConnection();
         return $result;
