@@ -19,12 +19,23 @@ class MailService {
         if($result){
             $con=mysqli_connect("localhost","root","root","vmail");
             if (mysqli_connect_errno()) {
-                echo "Failed to connect to MySQL: " . mysqli_connect_error();
+                throw new Exception("Failed to connect to MySQL: " . mysqli_connect_error());
             }
-            mysqli_query($con,"INSERT INTO alias (address, goto, domain, created, active) VALUES ('$userName', '$userAlias','$domain', NOW(), 1)");
+            $result = mysqli_query($con,"INSERT INTO alias (address, goto, domain, created, active) VALUES ('$userName', '$userAlias','$domain', NOW(), 1)");
             mysqli_close($con);
         }
 
+        return $result;
+    }
+
+    public function createDomain($domain)
+    {
+        $con=mysqli_connect("localhost","root","root","vmail");
+        if (mysqli_connect_errno()) {
+            throw new Exception("Failed to connect to MySQL: " . mysqli_connect_error());
+        }
+        $result = mysqli_query($con,"INSERT INTO domain (domain) VALUES ('$domain')");
+        mysqli_close($con);
         return $result;
     }
 

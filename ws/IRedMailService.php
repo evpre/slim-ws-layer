@@ -31,6 +31,12 @@ class IRedMailService extends BaseWSService {
             $result = $serviceAdapter->createEmailAccount($body);
             $res->body($result);
         });
+        $this->app->post('/newDomain/', function () use($res, $serviceAdapter, $req) {
+            $res->header('Content-Type', 'application/json');
+            $domain = $req->post('domain');
+            $result = $serviceAdapter->createDomain($domain);
+            $res->body($result);
+        });
     }
 }
 

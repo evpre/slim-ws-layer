@@ -24,6 +24,14 @@ class IRedMailAdapter {
         catch (Exception $e){
             return json_encode(array("success"=>false, "data" => $e->getMessage()));
         }
-
+    }
+    function createDomain($domain){
+        try{
+            $result = $this->mailService->createDomain(urldecode($domain));
+            return $result;
+        }
+        catch (Exception $e){
+            return json_encode(array("success"=>false, "data" => $e->getMessage()));
+        }
     }
 } 
