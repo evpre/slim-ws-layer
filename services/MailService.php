@@ -21,11 +21,10 @@ class MailService {
         $domain = $userInfo->domain;
         $userName = $userInfo->userName;
         $userAlias = $userInfo->userAlias;
-        $userPass = $userInfo->userPass;
 
         $this->db->openConnection();
         $this->db->existsDomain($domain);
-        $result = shell_exec("sh ../eamida_create_mail_user_SQL.sh $domain $userName $userPass");
+        $result = shell_exec("sh ../eamida_create_mail_user_SQL.sh $domain $userName");
         if(!$result){
             throw new Exception("shell script for user creation failed");
         }

@@ -73,7 +73,7 @@ SQL_RESULT=""
 if [ X"${USE_DEFAULT_PASSWD}" == X"YES" ]; then
     export CRYPT_PASSWD="$(openssl passwd -1 ${DEFAULT_PASSWD})"
 else
-    export CRYPT_PASSWD="$(openssl passwd -1 $3)"
+    :
 fi
 
 generate_sql()
@@ -89,7 +89,7 @@ generate_sql()
         if [ X"${USE_DEFAULT_PASSWD}" != X"YES" ]; then
             export CRYPT_PASSWD="$(openssl passwd -1 ${username})"
         else
-            export CRYPT_PASSWD="$(openssl passwd -1 $3)"
+            :
         fi
 
         # Different maildir style: hashed, normal.
@@ -132,7 +132,7 @@ EOF
     done
 }
 
-if [ $# -lt 3 ]; then
+if [ $# -lt 2 ]; then
     echo "Usage: $0 domain_name username pass"
 else
     # Generate SQL template.
