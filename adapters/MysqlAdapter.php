@@ -26,6 +26,10 @@ class MysqlAdapter {
     }
     function createDomain($domain)
     {
+        $result = preg_match('/([0-9a-z-]+\.)?[0-9a-z-]+\.[a-z]{2,7}/', $domain);
+        if(!$result){
+            throw new Exception("domain format is incorrect");
+        }
         return mysqli_query($this->conn,"INSERT INTO domain (domain, created) VALUES ('$domain', NOW())");
     }
 
