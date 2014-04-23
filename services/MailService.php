@@ -6,7 +6,15 @@
  * Time: 15:11
  */
 
+require_once dirname(__FILE__).'/../adapters/MysqlAdapter.php';
+
 class MailService {
+
+    protected $db;
+
+    function __construct(){
+        $this->db = new MysqlAdapter();
+    }
 
     public function createEmailAccount($userInfo)
     {
@@ -17,25 +25,18 @@ class MailService {
         $result = shell_exec("sh ../eamida_create_mail_user_SQL.sh $domain $userName");
 
         if($result){
-            $con=mysqli_connect("localhost","root","root","vmail");
-            if (mysqli_connect_errno()) {
-                throw new Exception("Failed to connect to MySQL: " . mysqli_connect_error());
-            }
-            $result = mysqli_query($con,"INSERT INTO alias (address, goto, domain, created, active) VALUES ('$userName', '$userAlias','$domain', NOW(), 1)");
-            mysqli_close($con);
+            $this->db->openConnection();
+            $result = $this->db->createAlias($userName, $userAlias, $domain);
+            $this->db->closeConnection();
         }
-
         return $result;
     }
 
     public function createDomain($domain)
     {
-        $con=mysqli_connect("localhost","root","root","vmail");
-        if (mysqli_connect_errno()) {
-            throw new Exception("Failed to connect to MySQL: " . mysqli_connect_error());
-        }
-        $result = mysqli_query($con,"INSERT INTO domain (domain, created) VALUES ('$domain', NOW())");
-        mysqli_close($con);
+        $this->db->openConnection();
+        $result = $this->db->createDomain($domain);
+        $this->db->closeConnection();
         return $result;
     }
 
