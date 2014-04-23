@@ -34,7 +34,7 @@ class MailService {
         if (mysqli_connect_errno()) {
             throw new Exception("Failed to connect to MySQL: " . mysqli_connect_error());
         }
-        $result = mysqli_query($con,"INSERT INTO domain (domain) VALUES ('$domain')");
+        $result = mysqli_query($con,"INSERT INTO domain (domain, created) VALUES ('$domain', NOW())");
         mysqli_close($con);
         return $result;
     }

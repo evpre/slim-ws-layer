@@ -19,7 +19,7 @@ class IRedMailAdapter {
     function createEmailAccount($userInfo){
         try{
             $result = $this->mailService->createEmailAccount(json_decode(urldecode($userInfo)));
-            return $result;
+            return $this->prepareResponse($result);
         }
         catch (Exception $e){
             return json_encode(array("success"=>false, "data" => $e->getMessage()));
@@ -28,10 +28,13 @@ class IRedMailAdapter {
     function createDomain($domain){
         try{
             $result = $this->mailService->createDomain(urldecode($domain));
-            return $result;
+            return $this->prepareResponse($result);
         }
         catch (Exception $e){
             return json_encode(array("success"=>false, "data" => $e->getMessage()));
         }
+    }
+    function prepareResponse($result){
+        return json_encode(array("success"=>true, "data"=>$result));
     }
 } 
