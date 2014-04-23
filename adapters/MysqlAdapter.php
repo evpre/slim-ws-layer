@@ -32,7 +32,7 @@ class MysqlAdapter {
     public function existsDomain($domain)
     {
         $result = mysqli_query($this->conn, "SELECT * FROM domain WHERE domain='$domain'");
-        if($result==null || !$result){
+        if(!mysqli_num_rows($result)){
             throw new Exception("domain does not exist");
         }
         return true;
