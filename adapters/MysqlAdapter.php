@@ -11,7 +11,7 @@ class MysqlAdapter {
     protected $conn;
 
     function openConnection(){
-        $this->conn = mysqli_connect("localhost","root","root","vmail");
+        $this->conn = mysqli_connect("localhost","root","jKS2Tv8IbcvIoCY2W3WZnwA3j","vmail");
         if (mysqli_connect_errno()) {
             throw new Exception("Failed to connect to MySQL: " . mysqli_connect_error());
         }
